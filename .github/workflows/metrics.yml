@@ -20,8 +20,18 @@ jobs:
           # Options
           user: slim71
           template: classic
-          base: header, activity, community, repositories, metadata
+          config_timezone: Europe/Rome
+          # What to do at each run
           output_action: commit
           committer_branch: metrics
           committer_message: "Updating metrics renders"
-          config_timezone: Europe/Rome
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+          # Base content to show
+          base: header, activity, community, repositories, metadata
+          # Include forks
+          repositories_forks: true
