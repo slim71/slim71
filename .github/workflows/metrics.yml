@@ -1,21 +1,61 @@
 # Visit https://github.com/lowlighter/metrics#-documentation for full reference
 name: Metrics
 on:
-  # Schedule updates (each day)
-  schedule: [{cron: "0 0 * * *"}]
-  # Lines below let you run workflow manually and on each commit
+  # Schedule updates (bi-weekly)
+  schedule: [{cron: "0 0 * * 1"}]
+  # Line below let you run workflow manually and on each commit
   workflow_dispatch:
   push:
     branches: 
     - main
+env:
+  # The date of the first run of the action. It has to be set to a date that is on the same weekday as the cron.
+  # 01/01/24 is Monday, so the cron is set to run on Mondays.
+  # Every second week of the bi-weekly cycle, the action is going to be skipped.
+  # The cron time can be set to any time of the day.
+  FIRST_RUN_DATE: 2024-01-01
 jobs:
-  github-metrics:
+
+  # From https://medium.com/@VeselyCodes/bi-weekly-github-actions-7bea6be7bd96
+  weekindex:
     runs-on: ubuntu-latest
+    outputs:
+      weekindex: ${{ steps.calculate.outputs.weekindex }}
+    steps:
+      - name: Calculate weekdiff
+        id: calculate
+        run: |
+          current_date=$(date +%Y-%m-%d)
+          start=$(date -d ${{ env.FIRST_RUN_DATE }} +%s)
+          end=$(date -d $current_date +%s)
+          weekdiff=$(((end-start) / 60 / 60 / 24 / 7))
+          weekindex=$((weekdiff % 2))
+          echo "weekindex=$weekindex" >> "$GITHUB_OUTPUT"
+          echo "FIRST_RUN_DATE: ${{ env.FIRST_RUN_DATE }}" >> $GITHUB_STEP_SUMMARY
+          echo "current_date: $current_date" >> $GITHUB_STEP_SUMMARY
+          echo "weekdiff: $weekdiff" >> $GITHUB_STEP_SUMMARY
+          echo "weekindex: $weekindex" >> $GITHUB_STEP_SUMMARY
+          if [ $weekindex -eq 0 ]; then
+            echo "🟢 It's the first week of the bi-weekly cycle. The action is going to run." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "🔴 It's the second week of the bi-weekly cycle. The action is going to be skipped." >> $GITHUB_STEP_SUMMARY
+          fi
+
+  github-metrics:
+    if: ${{ github.event_name == 'push' || needs.weekindex.outputs.weekindex == 0 }}
+    runs-on: ubuntu-latest
+    needs:
+      - weekindex
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+    
+      - name: Standard Metrics
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
         with:
+          filename: standard_metrics.svg
           token: ${{ secrets.METRICS_TOKEN }}
           # Options
           user: slim71
@@ -24,7 +64,7 @@ jobs:
           # What to do at each run
           output_action: commit
           committer_branch: metrics
-          committer_message: "Updating metrics renders"
+          committer_message: "Updating Standard Metrics render"
           # Rendering is subject to external factors and can fail occasionally
           retries: 3
           retries_delay: 300
@@ -35,3 +75,158 @@ jobs:
           base: header, activity, community, repositories, metadata
           # Include forks
           repositories_forks: true
+
+      - name: Half-year calendar
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: isocalendar.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: half-year
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating Calendar render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+
+      - name: Stargazers worldmap
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: stargazers.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_stargazers: yes
+          plugin_stargazers_charts: no
+          plugin_stargazers_worldmap: yes
+          plugin_stargazers_worldmap_token: ${{ secrets.GOOGLE_MAP_TOKEN }}
+          plugin_stargazers_worldmap_sample: 200
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating Stargazers renders"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+
+      - name: Mildly interesting facts
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: habits.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_habits: yes
+          plugin_habits_facts: yes
+          plugin_habits_charts: no
+          config_timezone: Europe/Rome
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating Interesting Facts render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+
+      - name: Featured star list
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: starlists.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_starlists: yes
+          plugin_starlists_limit_repositories: 2
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating Star List render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+
+      - name: Compact achievements display
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: achievements.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_achievements_threshold: X
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating Achievements render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+
+      - name: Repositories traffic
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: traffic.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: repositories
+          plugin_traffic: yes
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating Repositories Traffic render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
+
+      - name: 16Personalities profile
+        # Run even if another step fails
+        if: success() || failure()
+        uses: lowlighter/metrics@latest
+        with:
+          filename: 16personalities.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_16personalities: yes
+          # No need to hide the profile: it's public
+          plugin_16personalities_url: https://www.16personalities.com/profiles/990bfcc8eb6ed
+          plugin_16personalities_sections: personality, traits
+          plugin_16personalities_scores: no
+          # What to do at each run
+          output_action: commit
+          committer_branch: metrics
+          committer_message: "Updating 16Personalities render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
