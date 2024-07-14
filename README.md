@@ -15,8 +15,8 @@ I am... :computer: a **coder** :robot: a **Roboticist** :nut_and_bolt: a **DIYer
 [<img src="https://komarev.com/ghpvc/?username=slim71&color=blue&style=plastic&abbreviated=true" />](#)
 
 <p align="center" style="display: flex; justify-content: space-around;">
-    <img style="height: auto; width: 45%;" src="https://raw.githubusercontent.com/slim71/slim71/metrics/github-metrics.svg" />
-    <picture style="height: auto; width: 45%;">
+    <img style="height: auto; width: 30%;" src="https://raw.githubusercontent.com/slim71/slim71/metrics/github-metrics.svg" />
+    <picture style="height: auto; width: 30%;">
         <source
             srcset="https://github-readme-stats.vercel.app/api?username=slim71&show_icons=true&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged&custom_title=Activities&card_width=495&hide_border=true&theme=github_dark"
             media="(prefers-color-scheme: dark)"
