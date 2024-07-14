@@ -14,9 +14,9 @@ I am... :computer: a **coder** :robot: a **Roboticist** :nut_and_bolt: a **DIYer
 # :bar_chart: Info and statistics
 [<img src="https://komarev.com/ghpvc/?username=slim71&color=blue&style=plastic&abbreviated=true" />](#)
 
-<p align="center" style="display: flex; justify-content: space-around;">
-    <img style="height: auto; width: 30%;" src="https://raw.githubusercontent.com/slim71/slim71/metrics/github-metrics.svg" />
-    <picture style="height: auto; width: 30%;">
+<p align="center">
+    <img width="40%" src="https://raw.githubusercontent.com/slim71/slim71/metrics/github-metrics.svg" />
+    <picture>
         <source
             srcset="https://github-readme-stats.vercel.app/api?username=slim71&show_icons=true&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged&custom_title=Activities&card_width=495&hide_border=true&theme=github_dark"
             media="(prefers-color-scheme: dark)"
@@ -25,12 +25,12 @@ I am... :computer: a **coder** :robot: a **Roboticist** :nut_and_bolt: a **DIYer
             srcset="https://github-readme-stats.vercel.app/api?username=slim71&show_icons=true&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged&custom_title=Activities&card_width=495&hide_border=true&theme=catppuccin_latte"
             media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
         />
-        <img style="height: auto; width: 100%;" src="https://github-readme-stats.vercel.app/api?username=slim71&show_icons=true&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged&custom_title=Activities&card_width=495&hide_border=true" />
+        <img width="45%" src="https://github-readme-stats.vercel.app/api?username=slim71&show_icons=true&include_all_commits=true&show=reviews,discussions_started,discussions_answered,prs_merged&custom_title=Activities&card_width=495&hide_border=true" />
     </picture>
 </p>
-<p align="center" style="display: flex; justify-content: space-around; margin-top: 20px;">
-    <img style="height: auto; width: 50%;" src="https://raw.githubusercontent.com/slim71/slim71/metrics/isocalendar.svg" />
-    <picture style="height: auto; width: 45%;">
+<p align="center">
+    <img width="40%" src="https://raw.githubusercontent.com/slim71/slim71/metrics/isocalendar.svg" />
+    <picture>
         <source
             srcset="https://streak-stats.demolab.com?user=slim71&hide_border=true&theme=github-dark-blue"
             media="(prefers-color-scheme: dark)"
@@ -39,13 +39,13 @@ I am... :computer: a **coder** :robot: a **Roboticist** :nut_and_bolt: a **DIYer
             srcset="https://streak-stats.demolab.com?user=slim71&hide_border=true&theme=catppuccin_latte"
             media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
         />
-        <img style="height: auto; width: 100%;" src="https://streak-stats.demolab.com?user=slim71&hide_border=true" />
+        <img width="45%" src="https://streak-stats.demolab.com?user=slim71&hide_border=true" />
     </picture>
 </p>
 
-<p align="center" style="display: flex; justify-content: space-around; margin-top: 20px;">
-    <img style="height: auto; width: 45%;" src="https://raw.githubusercontent.com/slim71/slim71/metrics/habits.svg" />
-    <picture style="height: auto; width: 45%;">
+<p align="center">
+    <img width="50%;" src="https://raw.githubusercontent.com/slim71/slim71/metrics/habits.svg" />
+    <picture>
         <source
             srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=slim71&layout=compact&size_weight=0.2&count_weight=0.5&hide=Mathematica,HTML,TeX&hide_progress=true&card_width=495&custom_title=Mostly%20coding%20in&hide_border=true&theme=github_dark"
             media="(prefers-color-scheme: dark)"
@@ -54,7 +54,7 @@ I am... :computer: a **coder** :robot: a **Roboticist** :nut_and_bolt: a **DIYer
             srcset="https://github-readme-stats.vercel.app/api/top-langs/?username=slim71&layout=compact&size_weight=0.2&count_weight=0.5&hide=Mathematica,HTML,TeX&hide_progress=true&card_width=495&custom_title=Mostly%20coding%20in&hide_border=true&theme=catppuccin_latte"
             media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
         />
-        <img style="height: auto; width: 100%;" src="https://github-readme-stats.vercel.app/api/top-langs/?username=slim71&layout=compact&size_weight=0.2&count_weight=0.5&hide=Mathematica,HTML,TeX&hide_progress=true&card_width=495&custom_title=Mostly%20coding%20in&hide_border=true" />
+        <img width="40%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=slim71&layout=compact&size_weight=0.2&count_weight=0.5&hide=Mathematica,HTML,TeX&hide_progress=true&card_width=495&custom_title=Mostly%20coding%20in&hide_border=true" />
     </picture>
 </p>
 
