@@ -1,0 +1,35 @@
+# Visit https://github.com/lowlighter/metrics#-documentation for full reference
+name: Personality
+on:
+  # Line below let you run workflow manually and on each commit
+  workflow_dispatch:
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    
+      - name: 16Personalities profile
+        # Run even if another step fails
+        if: success() || failure()
+        uses: JujuDel/metrics@fix_16personalities_plugin_getComputedStyle
+        with:
+          filename: 16personalities.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_16personalities: yes
+          # No need to hide the profile: it's public
+          plugin_16personalities_url: https://www.16personalities.com/profiles/990bfcc8eb6ed
+          plugin_16personalities_sections: personality, traits
+          plugin_16personalities_scores: no
+          # What to do at each run
+          output_action: commit
+          committer_branch: attempt
+          committer_message: "Updating 16Personalities render"
+          # Rendering is subject to external factors and can fail occasionally
+          retries: 3
+          retries_delay: 300
+          # Output action is also subject to GitHub API rate-limiting and overall health status and can fail occasionally
+          retries_output_action: 5
+          retries_delay_output_action: 120
